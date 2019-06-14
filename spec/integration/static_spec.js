@@ -15,4 +15,18 @@ describe("routes : static", () => {
       })
     })
   })
+
+  describe("GET /marco", () => {
+
+    it("should return status code 200 and have 'Marco' in the body of the response", (done) => {
+
+      request.get(base, (err, res, body) => {
+        expect(res.statusCode).toBe(200);
+        expect(body).toContain("Marco");
+        
+        done();
+      })
+    })
+  })
+  })
 })
