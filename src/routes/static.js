@@ -1,19 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const staticController = require("../controllers/staticController");
+const about = require("../controllers/about");
+
 
 router.get("/", staticController.index);
 
-describe("Get /marco", () => {
-  it("should return status code and have 'Marco' in the body of the response", (done) => {
+router.get("/", about.index);
 
-    request.get(base, (err, res, body) => {
-      expect(res.statusCode).toBe(200);
-      expect(body).toContain("Polo");
 
-      done();
-    })
-  })
-})
 
 module.exports = router;
