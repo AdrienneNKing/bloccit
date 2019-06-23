@@ -7,15 +7,15 @@ const Topic = require("../../src/db/models").Topic;
 describe("routes : topics", () => {
 
   beforeEach((done) => {
-    this.topic;
+    this.Topic;
     sequelize.sync({force: true}).then((res) => {
 
       Topic.create({
         title: "JS Frameworks",
         description: "There is a lot of them"
       })
-      .then((topic) => {
-        this.topic = topic;
+      .then((Topic) => {
+        this.Topic = Topic;
         done();
       })
       .catch((err) => {
