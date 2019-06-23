@@ -6,7 +6,7 @@ const about = require("../controllers/about");
 
 router.get("/", staticController.index);
 
-router.get("/", about.index);
+router.get("/about", about.index);
 
 
 
