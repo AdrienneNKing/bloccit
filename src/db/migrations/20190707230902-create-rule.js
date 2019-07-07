@@ -1,15 +1,12 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Banners', {
+    return queryInterface.createTable('Rules', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
-      },
-      source: {
-        type: Sequelize.STRING
       },
       description: {
         type: Sequelize.STRING
@@ -30,10 +27,10 @@ module.exports = {
           key: "id",
           as: "topicID",
         },
-      }
+   }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Banners');
+    return queryInterface.dropTable('Rules');
   }
 };
