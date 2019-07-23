@@ -11,11 +11,11 @@ describe("routes : topics", () => {
     sequelize.sync({force: true}).then((res) => {
 
       Topic.create({
-        title: "JS Frameworks",
+        title: "Javascript Frameworks",
         description: "There is a lot of them"
       })
       .then((Topic) => {
-        this.Topic = Topic;
+        this.topic = Topic;
         done();
       })
       .catch((err) => {
@@ -32,7 +32,7 @@ describe("routes : topics", () => {
         expect(res.statusCode).toBe(200);
         expect(err).toBeNull();
         expect(body).toContain("Topics");
-        expect(body).toContain("JS Frameworks");
+        expect(body).toContain("Javascript Frameworks");
         done();
       });
     });
@@ -87,7 +87,7 @@ describe("routes : topics", () => {
      it("should render a view with the selected topic", (done) => {
        request.get(`${base}${this.topic.id}`, (err, res, body) => {
          expect(err).toBeNull();
-         expect(body).toContain("JS Frameworks");
+         expect(body).toContain("Javascript Frameworks");
          done();
        });
      });
@@ -119,6 +119,47 @@ describe("routes : topics", () => {
          });
        });
 
+     });
+
+   });
+
+   describe("GET /topics/:id/edit", () => {
+
+     it("should render a view with an edit topic form", (done) => {
+       request.get(`${base}${this.topic.id}/edit`, (err, res, body) => {
+         expect(err).toBeNull();
+         expect(body).toContain("Edit Topic");
+         expect(body).toContain("Javascript Frameworks");
+         done();
+       });
+     });
+
+   });
+
+   describe("POST /topics/:id/update", () => {
+
+     it("should update the topic with the given values", (done) => {
+        const options = {
+           url: `${base}${this.topic.id}/update`,
+           form: {
+             title: "JavaScript Frameworks",
+             description: "There are a lot of them"
+           }
+         };
+//#1
+         request.post(options,
+           (err, res, body) => {
+
+           expect(err).toBeNull();
+//#2
+           Topic.findOne({
+             where: { id: this.topic.id }
+           })
+           .then((topic) => {
+             expect(topic.title).toBe("JavaScript Frameworks");
+             done();
+           });
+         });
      });
 
    });

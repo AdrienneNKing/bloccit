@@ -29,7 +29,7 @@ describe("routes : static", () => {
   })
 
   describe("Get /about", () => {
-    it("should return status code 200 and have 'About Us' in the body of the response"), (done) => {
+    it("should return status code 200 and have 'About Us' in the body of the response", (done) => {
 
       request.get(base, (err, res, body) => {
         expect(res.statusCode).toBe(200);
@@ -37,6 +37,6 @@ describe("routes : static", () => {
 
         done();
       })
-    }
+    })
   })
 })
