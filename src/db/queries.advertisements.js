@@ -6,8 +6,8 @@ module.exports = {
     return Advertisement.findAll()
 
 
-    .then((topics) => {
-      callback(null, topics);
+    .then((advertisements) => {
+      callback(null, advertisements);
     })
     .catch((err) => {
       callback(err);
@@ -19,13 +19,13 @@ module.exports = {
         description: newAdvertisement.description
       })
       .then((advertisement) => {
-        callback(null, advertisement;
+        callback(null, advertisement);
       })
       .catch((err) => {
         callback(err);
       })
     },
-    getTopic(id, callback){
+    getAdvertisement(id, callback){
      return Advertisement.findByPk(id)
      .then((advertisement) => {
        callback(null, advertisement);
@@ -46,7 +46,7 @@ module.exports = {
      })
    },
 
-   updateAdvertisement(id, updatedTopic, callback){
+   updateAdvertisement(id, updatedAdvertisement, callback){
      return Advertisement.findByPk(id)
      .then((advertisement) => {
        if(!advertisement){
