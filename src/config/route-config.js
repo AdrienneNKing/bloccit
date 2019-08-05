@@ -8,6 +8,6 @@ module.exports = {
     app.use(marco);
     app.use(staticRoutes);
     app.use(topicRoutes);
-    app.use(advertisementRoutes);
+    app.use(advertisementRoutes)
   }
 }

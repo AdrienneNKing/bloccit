@@ -60,7 +60,7 @@ module.exports = {
       if(err || advertisement == null){
         res.redirect(404, "/");
       } else {
-        res.render("advertisement/edit", {advertisement});
+        res.render("advertisements/edit", {advertisement});
       }
     });
   },
