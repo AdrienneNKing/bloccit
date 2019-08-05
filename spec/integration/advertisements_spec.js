@@ -99,7 +99,7 @@ describe("routes : advertisements", () => {
      it("should delete the advertisement with the associated ID", (done) => {
 
  //#1
-       Advertisement.all()
+       Advertisement.findAll()
        .then((advertisements) => {
 
  //#2
@@ -109,7 +109,7 @@ describe("routes : advertisements", () => {
 
  //#3
          request.post(`${base}${this.advertisement.id}/destroy`, (err, res, body) => {
-           Advertisement.all()
+           Advertisement.findAll()
            .then((advertisements) => {
              expect(err).toBeNull();
              expect(advertisements.length).toBe(advertisementCountBeforeDelete - 1);

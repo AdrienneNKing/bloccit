@@ -99,7 +99,7 @@ describe("routes : topics", () => {
      it("should delete the topic with the associated ID", (done) => {
 
  //#1
-       Topic.all()
+       Topic.findAll()
        .then((topics) => {
 
  //#2
@@ -109,7 +109,7 @@ describe("routes : topics", () => {
 
  //#3
          request.post(`${base}${this.topic.id}/destroy`, (err, res, body) => {
-           Topic.all()
+           Topic.findAll()
            .then((topics) => {
              expect(err).toBeNull();
              expect(topics.length).toBe(topicCountBeforeDelete - 1);

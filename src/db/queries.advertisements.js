@@ -3,7 +3,7 @@ const Advertisement = require("./models").Advertisement;
 module.exports = {
 
   getAllAdvertisements(callback){
-    return Advertisement.all()
+    return Advertisement.findAll()
 
 
     .then((topics) => {
@@ -26,7 +26,7 @@ module.exports = {
       })
     },
     getTopic(id, callback){
-     return Advertisement.findById(id)
+     return Advertisement.findByPk(id)
      .then((advertisement) => {
        callback(null, advertisement);
      })
@@ -47,7 +47,7 @@ module.exports = {
    },
 
    updateAdvertisement(id, updatedTopic, callback){
-     return Advertisement.findById(id)
+     return Advertisement.findByPk(id)
      .then((advertisement) => {
        if(!advertisement){
          return callback("Advertisement not found");
