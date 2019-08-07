@@ -28,7 +28,6 @@ module.exports = {
       })
     },
     getTopic(id, callback){
-     return Topic.findByPk(id)
      return Topic.findByPk(id, {
 
       include: [{
