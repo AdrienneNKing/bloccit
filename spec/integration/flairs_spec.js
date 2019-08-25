@@ -1,61 +1,55 @@
+const request = require("request");
+const server = require("../../src/server");
+const base = "http://localhost:3000/topics";
+
 const sequelize = require("../../src/db/models/index").sequelize;
 const Topic = require("../../src/db/models").Topic;
+const Flair = require("../../src/db/models").Flair;
 
-describe("Flair", () => {
+describe("routes : flairs", () => {
 
   beforeEach((done) => {
     this.topic;
     this.flair;
+
     sequelize.sync({force: true}).then((res) => {
 
+//#1
       Topic.create({
-        title: "Winterland Adventures",
-        description: "A group of diaries from adventures in Alaska."
+        title: "Winter Activities",
+        description: "Post your favorite winter activities."
       })
       .then((topic) => {
         this.topic = topic;
 
         Flair.create({
-          name: "Skiing",
-          color: "Blue",
+          name: "Kid-Friendly",
+          color: "Pink",
           topicId: this.topic.id
         })
         .then((flair) => {
           this.flair = flair;
           done();
+        })
+        .catch((err) => {
+          console.log(err);
+          done();
         });
-      })
-      .catch((err) => {
-        console.log(err);
-        done();
       });
-
     });
 
   });
 
-  describe("#create()", () => {
+  describe("GET /topics/:topicId/flairs/new", () => {
 
-     it("should create a flair associated with an object with a name and color", (done) => {
-//#1
-       Flair.create({
-         name: "Snowshoeing",
-         color: "White",
-         topicId: this.topic.id
-       })
-       .then((flair) => {
+    it("should render a new flair form", (done) => {
+      request.get(`${base}/${this.topic.id}/flairs/new`, (err, res, body) => {
+        expect(err).toBeNull();
+        expect(body).toContain("New Flair");
+        done();
+      });
+    });
 
-//#2
-         expect(post.name).toBe("Snowshoeing");
-         expect(post.body).toBe("White");
-         done();
+  });
 
-       })
-       .catch((err) => {
-         console.log(err);
-         done();
-       });
-     });
-
-   });
 });
