@@ -32,20 +32,19 @@ module.exports = {
     getTopic(id, callback){
      return Topic.findByPk(id, {
 
-      include: [{
-        model: Post,
-        as: "posts"
-      }],
-      include: [{
-        model: Flair,
-        as: "flairs"
-      }]
+       include: [{
+         model: Post,
+         as: "posts"
+       },
+       {
+         model: Flair,
+         as: "flairs"
+       }]
     })
      .then((topic) => {
        callback(null, topic);
      })
      .catch((err) => {
-      console.log("the error is: ", err)
        callback(err);
      })
    },
