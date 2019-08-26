@@ -87,6 +87,7 @@ describe("routes : topics", () => {
      it("should render a view with the selected topic", (done) => {
        request.get(`${base}${this.topic.id}`, (err, res, body) => {
          expect(err).toBeNull();
+         console.log(`"body is", ${body}`)
          expect(body).toContain("Javascript Frameworks");
          done();
        });
