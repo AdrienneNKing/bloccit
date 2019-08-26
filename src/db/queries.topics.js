@@ -23,11 +23,9 @@ module.exports = {
         description: newTopic.description
       })
       .then((topic) => {
-        console.log(`the topic is: ${topic}`)
         callback(null, topic);
       })
       .catch((err) => {
-        console.log(`the error is: ${err}`)
         callback(err);
       })
     },
@@ -47,6 +45,7 @@ module.exports = {
        callback(null, topic);
      })
      .catch((err) => {
+      console.log("the error is: ", err)
        callback(err);
      })
    },

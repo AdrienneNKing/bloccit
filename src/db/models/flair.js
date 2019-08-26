@@ -18,10 +18,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   Flair.associate = function(models) {
+    // associations can be defined here
+
+//#3
     Flair.belongsTo(models.Topic, {
       foreignKey: "topicId",
       onDelete: "CASCADE"
-    })
+    });
   };
   return Flair;
 };

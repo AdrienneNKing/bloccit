@@ -29,18 +29,16 @@
        </li>
      <% }) %>
    </ul>
-      <hr>
 
-       <h1>Posts</h1>
-
-       <ul class="list-group">
-         <% topic.posts.forEach((post) => { %>
-           <li class="list-group-item">
-             <a href="/topics/<%= topic.id %>/posts/<%= post.id %>"> <%= post.title %> </a>
-           </li>
-         <% }) %>
-       </ul>
-    </main>
+   <h1>Posts</h1>
+   
+   <ul class="list-group">
+  <% topic.posts.forEach((post) => { %>
+    <li class="list-group-item">
+      <a href="/topics/<%= topic.id %>/posts/<%= post.id %>"> <%= post.title %> </a>
+    </li>
+  <% }) %>
+</ul>
 
     <% include ../static/partials/baseScripts.ejs %>
 
