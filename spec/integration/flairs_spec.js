@@ -128,5 +128,42 @@ describe("GET /topics/:topicId/flairs/:id", () => {
 
    });
 
+   describe("POST /topics/:topicId/flairs/:id/update", () => {
 
+        it("should return a status code 302", (done) => {
+          request.post({
+            url: `${base}/${this.topic.id}/flairs/${this.flair.id}/update`,
+            form: {
+              name: "Winter Risks",
+              color: "Red"
+            }
+          }, (err, res, body) => {
+            expect(res.statusCode).toBe(302);
+            done();
+          });
+        });
+
+        it("should update the flair with the given values", (done) => {
+            const options = {
+              url: `${base}/${this.topic.id}/flairs/${this.flair.id}/update`,
+              form: {
+                name: "Winter Risks"
+              }
+            };
+            request.post(options,
+              (err, res, body) => {
+
+              expect(err).toBeNull();
+
+              Flair.findOne({
+                where: {id: this.flair.id}
+              })
+              .then((flair) => {
+                expect(flair.name).toBe("Winter Risks");
+                done();
+              });
+            });
+        });
+
+      });
 });

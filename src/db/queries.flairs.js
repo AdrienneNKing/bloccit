@@ -21,6 +21,24 @@ module.exports = {
        callback(err);
      })
    },
+   updateFlair(id, updatedFlair, callback){
+     return Flair.findByPk(id)
+     .then((flair) => {
+       if(!flair){
+         return callback("Post not found");
+       }
+
+       flair.update(updatedFlair, {
+         fields: Object.keys(updatedFlair)
+       })
+       .then(() => {
+         callback(null, flair);
+       })
+       .catch((err) => {
+         callback(err);
+       });
+     });
+   },
 
    deleteFlair(id, callback){
      return Flair.destroy({
