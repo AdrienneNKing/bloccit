@@ -14,7 +14,6 @@ describe("routes : flairs", () => {
 
     sequelize.sync({force: true}).then((res) => {
 
-//#1
       Topic.create({
         title: "Winter Activities",
         description: "Post your favorite winter activities."
@@ -37,19 +36,97 @@ describe("routes : flairs", () => {
         });
       });
     });
-
-  });
+});
 
   describe("GET /topics/:topicId/flairs/new", () => {
 
-    it("should render a new flair form", (done) => {
-      request.get(`${base}/${this.topic.id}/flairs/new`, (err, res, body) => {
-        expect(err).toBeNull();
-        expect(body).toContain("New Flair");
-        done();
+      it("should render a new flair form", (done) => {
+        request.get(`${base}/${this.topic.id}/flairs/new`, (err, res, body) => {
+          expect(err).toBeNull();
+          expect(body).toContain("New Flair");
+          done();
+        });
       });
+
     });
 
+    describe("POST /topics/:topicId/flairs/create", () => {
+
+  it("should create a new flair and redirect", (done) => {
+     const options = {
+       url: `${base}/${this.topic.id}/flairs/create`,
+       form: {
+         name: "Watching snow",
+         color: "Grey"
+       }
+     };
+     request.post(options,
+       (err, res, body) => {
+
+         Flair.findOne({where: {name: "Watching snow"}})
+         .then((flair) => {
+           expect(flair).not.toBeNull();
+           expect(flair.name).toBe("Watching snow");
+           expect(flair.color).toBe("Grey");
+           expect(flair.topicId).not.toBeNull();
+           done();
+         })
+         .catch((err) => {
+           console.log(err);
+           done();
+         });
+       }
+     );
+   });
+
   });
+
+describe("GET /topics/:topicId/flairs/:id", () => {
+
+   it("should render a view with the selected flair", (done) => {
+     request.get(`${base}/${this.topic.id}/flairs/${this.flair.id}`, (err, res, body) => {
+       expect(err).toBeNull();
+       expect(body).toContain("Kid-Friendly");
+       done();
+     });
+   });
+
+ });
+
+ describe("POST /topics/:topicId/flairs/:id/destroy", () => {
+
+      it("should delete the flair with the associated ID", (done) => {
+
+
+        expect(this.flair.id).toBe(1);
+
+        request.post(`${base}/${this.topic.id}/flairs/${this.flair.id}/destroy`, (err, res, body) => {
+
+
+          Flair.findByPk(1)
+          .then((flair) => {
+            expect(err).toBeNull();
+            expect(flair).toBeNull();
+            done();
+          })
+        });
+
+      });
+
+    });
+
+    describe("GET /topics/:topicId/flairs/:id/edit", () => {
+
+     it("should render a view with an edit flair form", (done) => {
+       request.get(`${base}/${this.topic.id}/flairs/${this.flair.id}/edit`, (err, res, body) => {
+         expect(err).toBeNull();
+         expect(body).toContain("Edit Flair");
+         expect(body).toContain("Kid-Friendly");
+         done();
+       });
+     });
+
+   });
+
 
 });

@@ -3,6 +3,7 @@ const router = express.Router();
 
 const topicController = require("../controllers/topicController")
 const postController = require("../controllers/postController")
+const flairController = require("../controllers/flairController")
 
 router.get("/topics", topicController.index);
 router.get("/topics/new", topicController.new);
@@ -12,5 +13,6 @@ router.post("/topics/:id/destroy", topicController.destroy);
 router.get("/topics/:id/edit", topicController.edit);
 router.post("/topics/:id/update", topicController.update);
 router.post("/topics/:topicId/posts/:id/destroy", postController.destroy);
+router.post("/topics/:topicId/flairs/:id/destroy", flairController.destroy);
 
 module.exports = router;
