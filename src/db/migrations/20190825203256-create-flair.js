@@ -32,7 +32,8 @@ module.exports = {
           model: "Topics",
           key: "id",
           as: "topicId"
-        },
+        }
+      },
       postId: {
         type: Sequelize.INTEGER,
         onDelete: "CASCADE",
@@ -41,7 +42,6 @@ module.exports = {
           key: "id",
           as: "postId"
         },
-      }
       }
     });
   },
