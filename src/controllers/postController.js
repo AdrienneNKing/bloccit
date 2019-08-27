@@ -1,8 +1,15 @@
 const postQueries = require("../db/queries.posts.js");
-
+const topicQueries = require("../db/queries.topics.js")
 module.exports = {
   new(req, res, next) {
-       res.render("posts/new", {topicId: req.params.topicId});
+     topicQueries.getTopic(req.params.topicId, (err, topic) => {
+         if(err || topic == null){
+           console.log("Topic does not exist")
+         } else {
+           res.render("posts/new", {topic});
+         }
+       })
+
      },
 
      create(req, res, next){
@@ -41,11 +48,11 @@ module.exports = {
    },
 
    edit(req, res, next){
-     postQueries.getPost(req.params.id, (err, post) => {
-       if(err || post == null){
+     postQueries.getPost(req.params.id, (err, post, topic) => {
+       if(err || post || topic == null){
          res.redirect(404, "/");
        } else {
-         res.render("posts/edit", {post});
+         res.render("posts/edit", {post}, {topic});
        }
      });
    },

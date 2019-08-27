@@ -33,6 +33,15 @@ module.exports = {
           key: "id",
           as: "topicId"
         },
+      postId: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        references: {
+          model: "Posts",
+          key: "id",
+          as: "postId"
+        },
+      }
       }
     });
   },
