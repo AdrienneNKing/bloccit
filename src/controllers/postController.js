@@ -48,11 +48,11 @@ module.exports = {
    },
 
    edit(req, res, next){
-     postQueries.getPost(req.params.id, (err, post, topic) => {
-       if(err || post || topic == null){
-         res.redirect(404, "/");
+     topicQueries.getTopic(req.params.topicId, (err, topic) => {
+       if(err || topic == null){
+         console.log("Topic does not exist")
        } else {
-         res.render("posts/edit", {post}, {topic});
+         res.render("posts/edit", {topic});
        }
      });
    },
