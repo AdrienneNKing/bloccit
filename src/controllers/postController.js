@@ -28,11 +28,11 @@ module.exports = {
    },
 
    show(req, res, next){
-     postQueries.getPost(req.params.id, (err, post) => {
-       if(err || post == null){
-         res.redirect(404, "/");
+     topicQueries.getTopic(req.params.topicId, (err, topic) => {
+       if(err || topic == null){
+         console.log("Topic does not exist")
        } else {
-         res.render("posts/show", {post});
+         res.render("posts/show", {topic});
        }
      });
    },
