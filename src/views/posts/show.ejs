@@ -14,11 +14,8 @@
       <form style="display:initial" action="/topics/:topicId/posts/:id/destroy" method="post">
         <button type="submit" class="btn btn-danger">Delete</button>
       </form>
-      <h1><% topic.posts.forEach((post) => { %>
-        <option value="<%= post %>"><%= post.body %></option>
-      <% }) %></h1>
-    </main>
 
+    </main>
     <% include ../static/partials/baseScripts.ejs %>
 
   </body>
