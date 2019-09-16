@@ -7,7 +7,7 @@
     <% include ../static/partials/navbar.ejs %>
 
     <main class="container">
-      <h1><%= post.title %></h1>
+      <h1><%= post.dataValues.title %></h1>
       <p><%= post.body %></p>
       <a href="/topics/:topicId/posts/:id/edit" class="btn btn-warning">Edit</a>
       <form style="display:initial" action="/topics/:topicId/posts/:id/destroy" method="post">
