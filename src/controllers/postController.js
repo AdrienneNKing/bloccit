@@ -47,23 +47,35 @@ module.exports = {
      });
    },
 
-   edit(req, res, next){
-     postQueries.getPost(req.params.id, (err, post, topic) => {
-       if(err || post || topic == null){
-         res.redirect(404, "/");
-       } else {
-         res.render("posts/edit", {post}, {topic});
-       }
-     });
-   },
+   edit(req, res, next) {
 
-   update(req, res, next){
-     postQueries.updatePost(req.params.id, req.body, (err, post) => {
-       if(err || post == null){
-         res.redirect(404, `/topics/${req.params.topicId}/posts/${req.params.id}/edit`);
-       } else {
-         res.redirect(`/topics/${req.params.topicId}/posts/${req.params.id}`);
-       }
-     });
-   }
+        const post = postQueries.getPost(req.params.id, (err, post) => {
+             if(err || post == null){
+               res.redirect(404, "/")
+             } else {
+               return post;
+             }
+           })
+            const resolvedPost = post.resolve()
+            console.log(resolvedPost);
+             /*topicQueries.getTopic(post.topicId, (err, topic) => {
+               console.log(post);
+               console.log(topic);
+                if(err || topic == null){
+                  console.log("Topic does not exist")
+                } else {
+                  res.render("posts/edit", {post, topic});
+                }
+              })*/
+      },
+
+      update(req, res, next){
+        postQueries.updatePost(req.params.id, req.body, (err, post) => {
+          if(err || post == null){
+            res.redirect(404, `/topics/${req.params.topicId}/posts/${req.params.id}/edit`);
+          } else {
+            res.redirect(`/topics/${req.params.topicId}/posts/${req.params.id}`);
+          }
+        });
+      }
 }
