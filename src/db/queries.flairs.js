@@ -21,11 +21,12 @@ module.exports = {
        callback(err);
      })
    },
+   
    updateFlair(id, updatedFlair, callback){
      return Flair.findByPk(id)
      .then((flair) => {
        if(!flair){
-         return callback("Post not found");
+         return callback("Flair not found");
        }
 
        flair.update(updatedFlair, {

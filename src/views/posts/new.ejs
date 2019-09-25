@@ -20,7 +20,7 @@
         <div>
           <select name="Select Flair">
               <% topic.flairs.forEach((flair) => { %>
-                <option value="<%= flair %>"><%= flair.name %></option>
+                <option value="<%= flair %>" class="form-control" name="flair"><%= flair.name %></option>
               <% }) %>
           </select>
         </div>
