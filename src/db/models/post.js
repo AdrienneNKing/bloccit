@@ -1,13 +1,12 @@
 "use strict";
  module.exports = (sequelize, DataTypes) => {
    var Post = sequelize.define("Post", {
-     title: DataTypes.STRING,
 
      title: {
        type: DataTypes.STRING,
        allowNull: false
      },
-     body: DataTypes.STRING,
+
      body: {
        type: DataTypes.STRING,
        allowNull: false
@@ -29,12 +28,13 @@
        foreignKey: "topicId",
        onDelete: "CASCADE"
      });
-   };
 
    Post.belongsTo(models.User, {
      foreignKey: "userId",
      onDelete: "CASCADE"
    });
+
+   };
 
    return Post;
  };

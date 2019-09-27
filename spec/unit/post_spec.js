@@ -18,7 +18,7 @@ describe("Post", () => {
       })
 
       .then((user) => {
-        this.user = user; //store the user
+        this.user = user; 
 
         Topic.create({
           title: "Expeditions to Alpha Centauri",
