@@ -1,37 +1,52 @@
 const sequelize = require("../../src/db/models/index").sequelize;
 const Topic = require("../../src/db/models").Topic;
 const Post = require("../../src/db/models").Post;
+const User = require("../../src/db/models").User;
 
 describe("#create()", () => {
 
-  beforeEach ((done) => {
+  beforeEach((done) => {
+     this.topic;
+     this.post;
+     this.user;
 
-    this.topic;
-    this.post;
-    sequelize.sync({force: true}).then((res) => {
+     sequelize.sync({force: true}).then((res) => {
 
-    const title = "Alpha Centauri: We're Going Back";
-    const body = "They told us we shouldn't, we told them they couldn't stop us";
-    const topicId = this.topic.id;
 
-    Topic.create({
-      title,
-      body,
-      topicId
-    })
-    .then((topic) => {
-      expect(topic.title).toBe(title);
-      expect(topic.body).tobe(body);
+       User.create({
+         email: "starman@tesla.com",
+         password: "Trekkie4lyfe"
+       })
+       .then((user) => {
+         this.user = user;
 
-        done();
-    })
-    .catch(err => {
-      console.log(err);
-      done();
-    });
-  });
- });
-});
+
+         Topic.create({
+           title: "Expeditions to Alpha Centauri",
+           description: "A compilation of reports from recent visits to the star system.",
+
+
+           posts: [{
+             title: "My first visit to Proxima Centauri b",
+             body: "I saw some rocks.",
+             userId: this.user.id
+           }]
+         }, {
+
+
+           include: {
+             model: Post,
+             as: "posts"
+           }
+         })
+         .then((topic) => {
+           this.topic = topic;
+           this.post = topic.posts[0];
+           done();
+         })
+       })
+     });
+   });
 
   describe("#getPosts()", () => {
 
@@ -68,3 +83,4 @@ describe("#create()", () => {
     });
 
   });
+})
