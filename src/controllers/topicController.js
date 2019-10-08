@@ -46,7 +46,7 @@ module.exports = {
           req.flash("notice", "You are not authorized to do that.");
           res.redirect("/topics");
         }
-      }
+      },
 
   show(req, res, next){
 
@@ -67,7 +67,7 @@ module.exports = {
 
     topicQueries.deleteTopic(req, (err, topic) => {
       if(err){
-        res.redirect(err, `/topics/${req.params.id}`)
+        res.redirect(`/topics/${req.params.id}`, err)
       } else {
         res.redirect(303, "/topics")
       }
@@ -97,7 +97,7 @@ module.exports = {
    },
 
    update(req, res, next){
- 
+
       topicQueries.updateTopic(req, req.body, (err, topic) => {
         if(err || topic == null){
           res.redirect(401, `/topics/${req.params.id}/edit`);

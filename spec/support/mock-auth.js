@@ -13,7 +13,7 @@ module.exports = {
       id = req.body.userId || id;
       email = req.body.email || email;
 
-// #5
+
       if(id && id != 0){
         req.user = {
           "id": id,
