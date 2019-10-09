@@ -27,8 +27,14 @@ module.exports = {
        where: { id }
      })
      .then((deletedRecordsCount) => {
+       const authorized = new Authorizer(req.user, post).destroy();
+       if(authorized) {
        callback(null, deletedRecordsCount);
-     })
+     } else {
+     req.flash("notice", "You are not authorized to do that.")
+     callback(401);
+   }
+ })
      .catch((err) => {
        callback(err);
      })

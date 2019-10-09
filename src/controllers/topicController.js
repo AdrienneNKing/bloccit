@@ -67,7 +67,7 @@ module.exports = {
 
     topicQueries.deleteTopic(req, (err, topic) => {
       if(err){
-        res.redirect(`/topics/${req.params.id}`, err)
+        res.redirect(err, `/topics/${req.params.id}`)
       } else {
         res.redirect(303, "/topics")
       }
