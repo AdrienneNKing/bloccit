@@ -34,6 +34,10 @@
      onDelete: "CASCADE"
    });
 
+   Post.hasMany(models.Comment, {
+      foreignKey: "postId",
+      as: "comments"
+    });
    };
 
    return Post;
