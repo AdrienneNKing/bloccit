@@ -94,7 +94,7 @@ describe("routes : posts", () => {
        url: `${base}/${this.topic.id}/posts/create`,
        form: {
 
-  //#1
+  
          title: "a",
          body: "b"
        }
@@ -103,7 +103,7 @@ describe("routes : posts", () => {
      request.post(options,
        (err, res, body) => {
 
-  //#2
+
          Post.findOne({where: {title: "a"}})
          .then((post) => {
              expect(post).toBeNull();
@@ -135,12 +135,12 @@ describe("GET /topics/:topicId/posts/:id", () => {
 
       it("should delete the post with the associated ID", (done) => {
 
- //#1
+
         expect(this.post.id).toBe(1);
 
         request.post(`${base}/${this.topic.id}/posts/${this.post.id}/destroy`, (err, res, body) => {
 
- //#2
+
           Post.findByPk(1)
           .then((post) => {
             expect(err).toBeNull();
