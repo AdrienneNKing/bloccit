@@ -5,6 +5,28 @@ const Comment = require("../../src/db/models").Comment;
 const User = require("../../src/db/models").User;
 const Vote = require("../../src/db/models").Vote;
 
+function getPoints(role, done) {
+  User.create({
+    email: `${role}@example.com`,
+    password: "123456",
+    role: role
+  })
+  .then((user) => {
+    request.get({
+      url: "http://localhost:3000/auth/fake",
+      form: {
+        role: user.role,
+        userId: user.id,
+        email: user.email
+      }
+    },
+      (err, res, body) => {
+        done();
+      }
+    );
+  });
+}
+
 describe("Vote", () => {
 
   beforeEach((done) => {
@@ -65,10 +87,10 @@ describe("Vote", () => {
   });
   describe("#create()", () => {
 
-     // #2
+
          it("should create an upvote on a post for a user", (done) => {
 
-     // #3
+
            Vote.create({
              value: 1,
              postId: this.post.id,
@@ -76,7 +98,7 @@ describe("Vote", () => {
            })
            .then((vote) => {
 
-     // #4
+
              expect(vote.value).toBe(1);
              expect(vote.postId).toBe(this.post.id);
              expect(vote.userId).toBe(this.user.id);
@@ -89,7 +111,7 @@ describe("Vote", () => {
            });
          });
 
-     // #5
+
          it("should create a downvote on a post for a user", (done) => {
            Vote.create({
              value: -1,
@@ -116,10 +138,6 @@ describe("Vote", () => {
            })
            .then((vote) => {
 
-            // the code in this block will not be evaluated since the validation error
-            // will skip it. Instead, we'll catch the error in the catch block below
-            // and set the expectations there
-
              done();
 
            })
@@ -132,6 +150,42 @@ describe("Vote", () => {
            })
          });
 
+         it("should not create two votes for a user", done => {
+          Vote.create({
+            value: 1,
+            postId: this.post.id,
+            userId: this.user.id
+          }).then(vote => {
+            Vote.create({
+              value: 1,
+              postId: this.post.id,
+              userId: this.user.id
+            })
+              .then(vote => {
+                expect(vote.value).toBe(1);
+                done();
+              })
+              .catch(err => {
+                console.log(err);
+                done();
+              });
+          });
+        });
+
+        it("should not create a vote with a value of anything other than -1 or 1", done => {
+         Vote.create({
+           value: 2,
+           userId: this.user.id,
+           postId: this.post.id
+         }).then(vote => {
+               expect(vote.value).toBe(1);
+               done();
+             })
+             .catch(err => {
+               
+               done();
+             });
+         });
        });
 
        describe("#setUser()", () => {
@@ -233,7 +287,7 @@ describe("Vote", () => {
 
         });
 
-     
+
         describe("#getPost()", () => {
 
           it("should return the associated post", (done) => {

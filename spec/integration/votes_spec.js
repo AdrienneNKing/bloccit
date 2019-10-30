@@ -9,6 +9,28 @@ const Post = require("../../src/db/models").Post;
 const User = require("../../src/db/models").User;
 const Vote = require("../../src/db/models").Vote;
 
+function getPoints() {
+  Vote.create({
+    email: `${role}@example.com`,
+    password: "123456",
+    role: role
+  })
+  .then((user) => {
+    request.get({
+      url: "http://localhost:3000/auth/fake",
+      form: {
+        role: user.role,
+        userId: user.id,
+        email: user.email
+      }
+    },
+      (err, res, body) => {
+        done();
+      }
+    );
+  });
+}
+
 describe("routes : votes", () => {
 
   beforeEach((done) => {
@@ -175,89 +197,6 @@ describe("routes : votes", () => {
            }
          );
        });
-     });
-
-     describe("GET /topics/:topicId/posts/:postId/votes/upvote", () => {
-
-       it("should not create a vote with a value not equal to 1 or -1", (done) => {
-         const options = {
-           url: `${base}${this.topic.id}/posts/${this.post.id}/votes/upvote`
-         };
-         request.get(options,
-           (err, res, body) => {
-             Vote.findOne({
-               where: {
-                 userId: this.user.id,
-                 postId: this.post.id,
-                 value: 0
-               }
-             })
-             .then((vote) => {
-               expect(vote).toBeNull();
-               done();
-             })
-             .catch((err) => {
-               console.log(err);
-               done();
-             });
-           }
-         );
-       });
-
-     });
-
-     describe("GET /topics/:topicId/posts/:postId/votes/upvote", () => {
-
-       it("should not create multiple votes for one user", (done) => {
-         const options = {
-           url: `${base}${this.topic.id}/posts/${this.post.id}/votes/upvote`
-         };
-         request.get(options,
-           (err, res, body) => {
-             Vote.findOne({
-               where: {
-                 userId: this.user.id,
-                 postId: this.post.id,
-
-               }
-             })
-             .then((vote) => {
-               expect(vote).toBeNull();
-               done();
-             })
-             .catch((err) => {
-               console.log(err);
-               done();
-             });
-           }
-         );
-       });
-
-       it("should not create multiple votes for one user", (done) => {
-         const options = {
-           url: `${base}${this.topic.id}/posts/${this.post.id}/votes/upvote`
-         };
-         request.get(options,
-           (err, res, body) => {
-             Vote.findOne({
-               where: {
-                 userId: this.user.id,
-                 postId: this.post.id,
-
-               }
-             })
-             .then((vote) => {
-               expect(vote).toBeNull();
-               done();
-             })
-             .catch((err) => {
-               console.log(err);
-               done();
-             });
-           }
-         );
-       });
-
      });
 
 

@@ -1,28 +1,26 @@
-// #1
-const voteQueries = require("../db/queries.votes.js");
+const favoriteQueries = require("../db/queries.favorites.js");
 
 module.exports = {
-  upvote(req, res, next){
 
-
+// #2
+  create(req, res, next){
     if(req.user){
-      voteQueries.createVote(req, 1, (err, vote) => {
+      favoriteQueries.createFavorite(req, (err, favorite) => {
         if(err){
           req.flash("error", err);
         }
-        res.redirect(req.headers.referer);
       });
-
-
     } else {
       req.flash("notice", "You must be signed in to do that.")
-      res.redirect(req.headers.referer);
     }
+    res.redirect(req.headers.referer);
   },
-  downvote(req, res, next){
+
+// #3
+  destroy(req, res, next){
 
     if(req.user){
-      voteQueries.createVote(req, -1, (err, vote) => {
+      favoriteQueries.deleteFavorite(req, (err, favorite) => {
         if(err){
           req.flash("error", err);
         }
