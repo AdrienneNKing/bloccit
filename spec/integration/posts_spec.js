@@ -94,7 +94,7 @@ describe("routes : posts", () => {
        url: `${base}/${this.topic.id}/posts/create`,
        form: {
 
-  
+
          title: "a",
          body: "b"
        }

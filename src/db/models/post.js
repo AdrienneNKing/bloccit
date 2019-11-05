@@ -49,13 +49,21 @@
      foreignKey: "postId",
      as: "favorites"
    });
-   
+
    Post.afterCreate((post, callback) => {
      return models.Favorite.create({
        userId: post.userId,
        postId: post.id
      });
    });
+
+   Post.afterCreate((post, callback) => {
+      return models.Vote.create({
+        value: 1,
+        userId: post.userId,
+        postId: post.id
+      });
+    });
 
    };
 
@@ -69,6 +77,29 @@
        .map((v) => { return v.value })
        .reduce((prev, next) => { return prev + next });
    };
+
+   Post.prototype.hasUpvoteFor = function(userId) {
+    return this.getVotes({ where: { userId, postId: this.id, value: 1 } }).then(
+      votes => {
+        if (votes.length > 0) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    );
+  };
+  Post.prototype.hasDownvoteFor = function(userId) {
+    return this.getVotes({
+      where: { userId, postId: this.id, value: -1 }
+    }).then(votes => {
+      if (votes.length > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  };
 
    Post.prototype.getFavoriteFor = function(userId){
         return this.favorites.find((favorite) => { return favorite.userId == userId });
