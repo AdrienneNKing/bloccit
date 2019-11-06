@@ -91,7 +91,7 @@ describe("routes : votes", () => {
          }
        );
 
-     });
+
 
      describe("GET /topics/:topicId/posts/:postId/votes/upvote", () => {
 
@@ -118,6 +118,7 @@ describe("routes : votes", () => {
            }
          );
        });
+     });
 
      });
    });
