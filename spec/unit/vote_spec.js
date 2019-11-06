@@ -132,6 +132,37 @@ describe("Vote", () => {
            })
          });
 
+         it("should not create an upvote with a value more than 1", done => {
+            Vote.create({
+              value: 23,
+              postId: this.post.id,
+              userId: this.user.id
+            })
+              .then(vote => {
+                done();
+              })
+              .catch(err => {
+                done();
+              });
+            });
+
+            it("should not create a downvote with a value less than -1", done => {
+              Vote.create({
+                value: -23,
+                postId: this.post.id,
+                userId: this.user.id
+              })
+                .then(vote => {
+                  /* Should not evaluate. Should default to the
+                catch statement */
+                  done();
+                })
+                .catch(err => {
+                  expect(err.message).toContain("Validation isIn on value failed");
+                  done();
+                });
+              });
+
        });
 
        describe("#setUser()", () => {
@@ -233,7 +264,7 @@ describe("Vote", () => {
 
         });
 
-     
+
         describe("#getPost()", () => {
 
           it("should return the associated post", (done) => {
@@ -256,5 +287,38 @@ describe("Vote", () => {
           });
 
         });
+
+      describe("#hasUpvoteFor", () => {
+
+        it("should return true if user with matching id has upvote for the post", done => {
+          Vote.create({
+            value: 1,
+            userId: this.user.id,
+            postId: this.post.id
+          })
+          .then(vote => {
+            this.post.hasUpvoteFor(this.user.id).then(res => {
+              expect(res).toBe(true);
+              done();
+            });
+          });
+        });
+      });
+      
+    describe("#hasDownvoteFor()", () => {
+
+      it("should return true if a user with matching id has downvote for the post", done => {
+        Vote.create({
+          value: -1,
+          userId: this.user.id,
+          postId: this.post.id
+        }).then(vote => {
+          this.post.hasDownvoteFor(this.user.id).then(res => {
+            expect(res).toBe(true);
+            done();
+          });
+        });
+      });
+    });
 
 });
