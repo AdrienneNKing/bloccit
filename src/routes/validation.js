@@ -19,7 +19,6 @@ module.exports = {
     }
   },
 
-<<<<<<< HEAD
   validateTopics(req, res, next) {
 
 
@@ -43,7 +42,7 @@ module.exports = {
     }
   }
 
-=======
+
   validateUsers(req, res, next) {
      if(req.method === "POST") {
 
@@ -62,5 +61,5 @@ module.exports = {
        return next();
      }
    }
->>>>>>> authentication
+ authentication
 }
