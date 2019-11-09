@@ -1,4 +1,3 @@
-// #1
 const Comment = require("./models").Comment;
 const Post = require("./models").Post;
 const User = require("./models").User;
@@ -28,7 +27,7 @@ module.exports = {
         });
       } else {
 
- 
+
         Vote.create({
           value: val,
           postId: req.params.postId,

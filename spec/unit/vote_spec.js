@@ -182,7 +182,7 @@ describe("Vote", () => {
                done();
              })
              .catch(err => {
-               
+
                done();
              });
          });
