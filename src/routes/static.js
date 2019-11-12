@@ -6,6 +6,10 @@ const about = require("../controllers/about");
 
 router.get("/", staticController.index);
 
+router.get("/marco", (request, response, next) => {
+  response.send("polo");
+});
+
 router.get("/about", about.index);
 
 
