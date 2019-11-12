@@ -24,7 +24,7 @@ describe("routes : flairs", () => {
         Flair.create({
           name: "Kid-Friendly",
           color: "Pink",
-          topicId: this.post.id
+          postId: this.post.id
         })
         .then((flair) => {
           this.flair = flair;

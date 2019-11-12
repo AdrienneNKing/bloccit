@@ -29,6 +29,10 @@
          foreignKey: "topicId",
          onDelete: "CASCADE"
        });
+     Post.belongsTo(models.Flair, {
+         foreignKey: "flairId",
+         onDelete: "CASCADE"
+     });
 
      Post.belongsTo(models.User, {
        foreignKey: "userId",
@@ -49,11 +53,6 @@
      foreignKey: "postId",
      as: "favorites"
    });
-
-     Post.hasMany(models.Flair, {
-       foreignKey: "postId",
-       as: "flairs"
-     });
 
    Post.afterCreate((post, callback) => {
      return models.Favorite.create({

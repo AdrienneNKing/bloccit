@@ -1,35 +1,20 @@
-"use strict";
+'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("Favorites", {
+    return queryInterface.createTable('Flairs', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-
- // #1
-      postId: {
-        type: Sequelize.INTEGER,
-        onDelete: "CASCADE",
+      name: {
         allowNull: false,
-        references: {
-          model: "Posts",
-          key: "id",
-          as: "postId"
-        }
+        type: Sequelize.STRING
       },
- // #2
-      userId: {
-        type: Sequelize.INTEGER,
-        onDelete: "CASCADE",
+      color: {
         allowNull: false,
-        references: {
-          model: "Users",
-          key: "id",
-          as: "userId"
-        }
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -38,10 +23,29 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      topicId: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        allowNull: false,
+        references: {
+          model: "Topics",
+          key: "id",
+          as: "topicId"
+        }
+      },
+      postId: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        references: {
+          model: "Posts",
+          key: "id",
+          as: "postId"
+        },
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Favorites");
+    return queryInterface.dropTable('Flairs');
   }
 };
