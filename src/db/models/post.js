@@ -50,6 +50,11 @@
      as: "favorites"
    });
 
+     Post.hasMany(models.Flair, {
+       foreignKey: "postId",
+       as: "flairs"
+     });
+
    Post.afterCreate((post, callback) => {
      return models.Favorite.create({
        userId: post.userId,

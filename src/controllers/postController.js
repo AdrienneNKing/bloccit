@@ -3,7 +3,7 @@ const Authorizer = require("../policies/post");
 
 module.exports = {
   new(req, res, next) {
-       res.render("posts/new", {topicId: req.params.topicId});
+       res.render("posts/new", { topicId: req.params.topicId});
      },
 
      create(req, res, next){

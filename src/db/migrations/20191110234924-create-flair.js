@@ -24,19 +24,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      topicId: {
-        type: Sequelize.INTEGER,
-        onDelete: "CASCADE",
-        allowNull: false,
-        references: {
-          model: "Topics",
-          key: "id",
-          as: "topicId"
-        }
-      },
       postId: {
-        type: Sequelize.INTEGER,
-        onDelete: "CASCADE",
+        type:Sequelize.INTEGER,
+        onDELETE: "CASCADE",
+        allowNull: false,
         references: {
           model: "Posts",
           key: "id",
